@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 
 export const getMyProfile = async (req, res) => {
   let user = await userModel.findOne({ _id: req.user.id });
-  res.send(user);
+  res.send({success: true, fullName:user.fullName, email :user.email , id:user._id});
 };
 
 export const updateMyProfile = async (req, res) => {

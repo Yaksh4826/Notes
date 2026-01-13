@@ -6,7 +6,7 @@ export const createTask = async (req, res) => {
   try {
     const task = await Task.create({
       title: req.body.title,
-      description: req.body.description,
+      content: req.body.content,
       user: req.user.id
     });
 

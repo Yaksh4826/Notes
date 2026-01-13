@@ -5,26 +5,43 @@ import cookieParser from "cookie-parser";
 import userModel from "../models/userModel.js";
 import env from "../config/config.js";
 
-export const registerUser = function (req, res) {
+export const registerUser = async function (req, res) {
   let { fullName, email, password } = req.body;
-  // Hashing the password
 
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(password, salt, async function (err, hash) {
-      // Storing the user
-      let user = await userModel.create({
-        fullName: fullName,
-        email: email,
-        password: hash,
+
+  // First we need to check if the email exists or not
+  let user = await userModel.findOne({ email: email });
+
+  if (user) {
+    return res.send({
+      success: false,
+      message: "Account already exists,"
+    })
+  }
+  else {
+
+
+
+
+
+    bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.hash(password, salt, async function (err, hash) {
+        // Storing the user
+        let user = await userModel.create({
+          fullName: fullName,
+          email: email,
+          password: hash,
+        });
+
+
+        let data = { success: true, fullName: user.fullName, email: user.email, message: "Successfully created account" }
+
+        let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
+        res.cookie("token", token);
+        res.send(data);
       });
-      console.log(user);
-      
-  let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
-  res.cookie("token", token);
-  res.send("User registered successfully");
     });
-  });
-
+  }
 };
 
 export const loginUser = async (req, res) => {
@@ -33,7 +50,10 @@ export const loginUser = async (req, res) => {
   let user = await userModel.findOne({ email: email });
 
   if (!user) {
-    return res.send("Invalid credientials : Something went wrong");
+    return res.send({
+      success: false,
+      message: "something went wrong"
+    });
   } else {
     // Now checking if that user's original password matches the current entered
 
@@ -42,19 +62,24 @@ export const loginUser = async (req, res) => {
         // setting the token
         let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
         res.cookie("token", token);
-        return res.send("Logged in sucessfully");
+        return res.send({ success: true, fullName: user.fullName, email: user.email, id:user._id, message: "Logged in successfully" });
       } else {
-        return res.send("Invalid password");
+        return res.send({ success: false, message: "Invalid Password" });
       }
     });
   }
 };
 
 export const logoutUser = (req, res) => {
-  // In Logout we make the token null
   res.cookie("token", "");
-  res.send("Logout sucessfully");
+
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
 };
+
 
 
 

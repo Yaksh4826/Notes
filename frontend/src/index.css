@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+
+
+/* ===== Fonts ===== */
+@font-face {
+  font-family: "RL Madena";
+  src: url("./assets/fonts/RL Madena Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "RL Madena";
+  src: url("./assets/fonts/RL-Madena-Oblique.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: oblique;
+  font-display: swap;
+}
+
+/* ===== Tailwind utility class ===== */
+@layer utilities {
+  .font-rl-madena {
+    font-family: "RL Madena", sans-serif;
+  }
+}
