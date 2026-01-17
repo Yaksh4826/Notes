@@ -1,7 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 import userModel from "../models/userModel.js";
 import env from "../config/config.js";
 
@@ -62,7 +61,7 @@ export const loginUser = async (req, res) => {
         // setting the token
         let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
         res.cookie("token", token);
-        return res.send({ success: true, fullName: user.fullName, email: user.email, id:user._id, message: "Logged in successfully" });
+        return res.send({ success: true, fullName: user.fullName, email: user.email, id: user._id, message: "Logged in successfully" });
       } else {
         return res.send({ success: false, message: "Invalid Password" });
       }
@@ -71,7 +70,7 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
- res.clearCookie("token", {
+  res.clearCookie("token", {
     httpOnly: true,
     sameSite: "lax",
   });
