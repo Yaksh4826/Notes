@@ -1,0 +1,29 @@
+
+/* Footer accents */
+.footer-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  display: inline-block;
+  animation: pulseDot 1.6s ease-in-out infinite, glowDot 2.4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.dot-red { background: #7c3aed; animation-delay: 0s; }      /* purple */
+.dot-blue { background: #06b6d4; animation-delay: 0.15s; }   /* teal */
+.dot-yellow { background: #f59e0b; animation-delay: 0.3s; }  /* amber */
+.dot-green { background: #ec4899; animation-delay: 0.45s; }  /* pink */
+
+@keyframes pulseDot {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.85; }
+  50% { transform: translateY(-4px) scale(1.15); opacity: 1; }
+}
+
+@keyframes glowDot {
+  0%, 100% { box-shadow: 0 0 10px rgba(255,255,255,0.25); }
+  50% { box-shadow: 0 0 18px rgba(255,255,255,0.55); }
+}
+
+.footer-glow {
+  text-shadow: 0 0 10px rgba(59,130,246,0.35), 0 0 18px rgba(59,130,246,0.25);
+}
+

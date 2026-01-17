@@ -9,6 +9,7 @@ import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { AuthProvider } from "./context/authContext";
 import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
+import { UpdatePage } from "./pages/UpdatePage";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -26,7 +27,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/profile/:id" element={<Profile />} />
                <Route path="/create" element={<CreatePage />} />
-              
+                <Route path="/update/:id" element={<UpdatePage />} />
             </Route>
           </Routes>
         </div>

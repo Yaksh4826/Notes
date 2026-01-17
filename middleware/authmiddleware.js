@@ -5,7 +5,7 @@ const isLoggedIn = (req, res, next) => {
   let token = req.cookies.token;
   // Verifying the token
 
-  if (!token) return res.send({success:false, message:"You are not logged in"});
+  if(token===null || token===" " || token==undefined) return res.send({success:false, message:"You are not logged in"});
   else {
     let userData = jwt.verify(token, env.JWT_SECRET);
     req.user = userData;

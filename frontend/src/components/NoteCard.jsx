@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { X, Pin } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export default function NoteCard({ 
   title = "My Thoughts", 
   content = "This is a beautiful note with some content that wraps nicely...",
   onDelete,
-
+  onEdit,
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -59,8 +59,15 @@ export default function NoteCard({
           <div className="absolute left-12 top-0 bottom-0 w-px bg-purple-300 opacity-40"></div>
 
           {/* Top header with actions */}
-          <div className="relative px-6 pt-4 pb-2 flex items-start flex-row-reverse">
+          <div className="relative px-6 pt-4 pb-2 flex justify-between flex-row">
          
+         
+            <button
+              onClick={onEdit}
+              className="p-1 text-sm bg-white/50 rounded-full transition-all duration-300 hover:bg-blue-100 text-blue-400 hover:text-blue-600 transform hover:scale-110 active:scale-95 group/delete"
+            >
+              Edit
+                  </button>
 
             {/* Delete button */}
             <button
@@ -69,6 +76,7 @@ export default function NoteCard({
             >
               <X  size={19} className="transition-transform duration-300 group-hover/delete:rotate-90" />
             </button>
+            
           </div>
 
           {/* Content */}

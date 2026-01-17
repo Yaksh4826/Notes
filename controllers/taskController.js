@@ -33,6 +33,26 @@ export const getMyTasks = async (req, res) => {
   }
 };
 
+export const getOneTask = async (req, res) => {
+  try {
+    const task = await Task.findOne({_id:req.params.id});
+
+    res.status(200).json({
+      success: true,
+      task
+    });
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+};
+
+
+
+
+
+
+
+
 /* UPDATE TASK */
 export const updateTask = async (req, res) => {
   try {

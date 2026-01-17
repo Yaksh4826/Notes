@@ -12,9 +12,14 @@ export const AuthProvider = ({ children }) => {
   const getUser = async () => {
     try {
       const res = await api.get("/users/me", { withCredentials: true });
-      console.log(res.data)
-      setUser(res.data);
-      setIsAuthenticated(true);
+      if(res.data?.success===false){
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+      else{
+        setUser(res.data);
+        setIsAuthenticated(true);
+      }
     } catch (e) {
       setUser(null);
       setIsAuthenticated(false);
@@ -30,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         {},
         { withCredentials: true }
       );
-      console.log(response);
+    
     } finally {
       setUser(null);
       setIsAuthenticated(false);
