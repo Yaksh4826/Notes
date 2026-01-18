@@ -7,7 +7,7 @@ import { Home } from "./pages/Home";
 import { Profile } from "./pages/Profile";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
 import { UpdatePage } from "./pages/UpdatePage";
 function App() {
