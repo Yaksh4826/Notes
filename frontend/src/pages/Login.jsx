@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import api from "../api/axios";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 
 export const Login = () => {

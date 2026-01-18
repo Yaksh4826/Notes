@@ -1,6 +1,6 @@
 import React , {useEffect, useState} from 'react'
 import { useContext } from 'react'
-import { AuthContext } from '../context/authContext'
+import { AuthContext } from '../context/AuthContext.jsx'
 import { Link ,useNavigate } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import NoteCard from '../components/NoteCard'
