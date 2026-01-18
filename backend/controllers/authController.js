@@ -36,7 +36,12 @@ export const registerUser = async function (req, res) {
         let data = { success: true, fullName: user.fullName, email: user.email, message: "Successfully created account" }
 
         let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
-        res.cookie("token", token);
+        res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 24 * 60 * 60 * 1000
+});
         res.send(data);
       });
     });
@@ -60,7 +65,12 @@ export const loginUser = async (req, res) => {
       if (result) {
         // setting the token
         let token = jwt.sign({ id: user._id }, env.JWT_SECRET);
-        res.cookie("token", token);
+       res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 24 * 60 * 60 * 1000
+});
         return res.send({ success: true, fullName: user.fullName, email: user.email, id: user._id, message: "Logged in successfully" });
       } else {
         return res.send({ success: false, message: "Invalid Password" });
@@ -72,7 +82,8 @@ export const loginUser = async (req, res) => {
 export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   });
 
   return res.status(200).json({
