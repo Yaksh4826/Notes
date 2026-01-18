@@ -12,21 +12,34 @@ export const CreatePage = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const [result, setResult] = useState(null);
+  // const [result, setResult] = useState(null);
   const navigate = useNavigate();
 
+  // const onSubmit = async (data) => {
+  //   try {
+  //     let response = await api.post("/tasks", data);
+  //     setResult(response.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
   const onSubmit = async (data) => {
-    try {
-      let response = await api.post("/tasks", data);
-      setResult(response.data);
-    } catch (e) {
-      console.log(e);
+  try {
+    let response = await api.post("/tasks", data);
+    console.log("Task created:", response.data);
+    
+    // Check if successful, then navigate
+    if (response.data.success) {
+      navigate("/");
     }
-  };
-
-  if (result?.success) {
-    navigate("/");
+  } catch (e) {
+    console.log("Error:", e);
   }
+};
+
+  // if (result?.success) {
+  //   navigate("/");
+  // }
 
   return (
     <div className="flex flex-col justify-center items-center flex-1 max-w-7xl min-h-10/12 mx-auto w-full">
