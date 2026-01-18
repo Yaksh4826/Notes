@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import api from '../api/axios';
 import ProfileCard from '../components/ProfileCard';
 import { useContext } from 'react';
-import { AuthContext } from '../context/authContext';
+import { AuthContext } from '../context/AuthContext.jsx';
 
 
 export const Profile = () => {
